@@ -1,0 +1,236 @@
+{
+  "dataset_title": "Healthcare Software Projects and Publicly Documented Development Lifecycle Evidence",
+  "research_date": "2026-10-05",
+  "selection": "Eight established healthcare software projects with project-maintained development, contribution, testing, governance, or release documentation reviewed.",
+  "interpretation_note": "SDLC model names are recorded only when explicitly stated by project primary sources. Documented activities are not converted into generic lifecycle phases, and missing information is not inferred. The dataset describes what the reviewed sources document, not an independent audit that every practice is followed.",
+  "records": [
+    {
+      "id": "openmrs",
+      "software_name": "OpenMRS",
+      "software_type": "Open-source electronic medical record (EMR) platform",
+      "maintainer_or_org": "OpenMRS community / OpenMRS Inc.",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "Work is tracked in JIRA; new issues are assessed by a core OpenMRS developer and marked Ready for Work before work begins. Contributors claim an issue and identify the affected OpenMRS version/source branch.",
+        "Contributors fork and clone the repository, create a separate branch for an issue, and develop against the upstream repository.",
+        "The developer manual directs contributors to write unit tests for changed scenarios and run all unit tests; documented commands include mvn clean install. The core CONTRIBUTING guide also says to include tests, ensure they pass, and run ./mvnw clean package before a pull request.",
+        "Contributors commit and push work, update/rebase against upstream, and submit a GitHub pull request. Core contribution instructions request code review through the associated JIRA issue; reviewers may request revisions.",
+        "The developer manual describes continuous integration as rebuilding OpenMRS after changes and reporting successful/failing tests and effects on dependent modules. The core repository README displays build, coverage, and quality-gate status links.",
+        "The developer manual says release timelines and supported features are largely decided by the OpenMRS leadership group, with larger goals documented as technical-roadmap milestones; a release manager stabilizes source, packages it, and releases it publicly.",
+        "The manual documents alpha, beta, optional release-candidate, major, and maintenance releases, with descriptions of their purposes and quality expectations. It describes release branches for major/minor releases and reuse for maintenance releases."
+      ],
+      "evidence_statement": "OpenMRS-maintained sources explicitly document issue selection, branch-based contribution, unit testing, pull-request/code-review steps, CI checks, and release management and release types. They do not name an overall SDLC model. The evidence does not establish that every instruction remains current, that every component follows an identical process, or a formal clinical/regulatory validation process.",
+      "verbatim_evidence": [
+        "You should always be sure to run all the unit tests to validate your work. — Development Process, Quality Assurance Efforts (https://devmanual.openmrs.org/technology/developmentprocess/)",
+        "Your code will not be reviewed until you follow this process in JIRA. — Development Process, Requesting a Review (https://devmanual.openmrs.org/technology/developmentprocess/)",
+        "The release process is managed by a release manager who is responsible for getting the source code stabilized, packaged, and released to the general public. — Development Process, Understanding OpenMRS Releases (https://devmanual.openmrs.org/technology/developmentprocess/)"
+      ],
+      "primary_sources": [
+        {"title": "Development Process", "url": "https://devmanual.openmrs.org/technology/developmentprocess/"},
+        {"title": "openmrs/openmrs-core — CONTRIBUTING.md", "url": "https://github.com/openmrs/openmrs-core/blob/master/CONTRIBUTING.md"},
+        {"title": "openmrs/openmrs-core", "url": "https://github.com/openmrs/openmrs-core"}
+      ],
+      "date_or_version_context": "Developer Manual identifies itself as version 1.2 and states no publication date. GitHub instructions were reviewed at master, an undated moving branch. The release-process statements have no stated date or target version in the reviewed source.",
+      "limitations": "Evidence is from project-maintained documentation and the official core repository. The developer manual contains versioned and potentially time-sensitive examples; the GitHub guide is undated. The sources document contributor and release procedures but not a comprehensive organization-wide lifecycle or formal clinical/regulatory validation requirements."
+    },
+    {
+      "id": "openemr",
+      "software_name": "OpenEMR",
+      "software_type": "Open-source electronic health record and medical practice management system",
+      "maintainer_or_org": "OpenEMR project maintainers and contributor community; official repository is openemr/openemr.",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "Contribution guide allows direct pull requests; for larger changes it suggests seeking community input through the forum, an issue, or a conference call. It documents local development from a fork and PR submission to the main repository.",
+        "A maintainer reviews pull requests; contributors respond to feedback with updates on the same branch. First-time contributors require maintainer approval before CI checks run.",
+        "Automated checks include commit-title validation, PHP syntax/static checks, unit/API/E2E/integration tests across multiple PHP/database versions, JavaScript tests, and Docker linting.",
+        "Release-specific QA documentation describes development demos and daily builds/packages for tester feedback, including installation and upgrade testing, bug fixes, release checks, documentation, and translations.",
+        "The official release checklist describes creating/protecting a release branch, finalizing the branch and translations, tagging a version, building packages, publishing them, and announcing the release."
+      ],
+      "evidence_statement": "OpenEMR primary project sources document a pull-request contribution process, maintainer review, specified automated checks/tests, release-focused testing, and concrete release tasks. They do not explicitly name an SDLC methodology or establish a universal lifecycle with generic phases. No formal clinical validation or product-wide sign-off framework is inferred.",
+      "verbatim_evidence": [
+        "Unit, API, E2E, and integration tests across multiple PHP/database versions — CONTRIBUTING.md, After You Submit (https://github.com/openemr/openemr/blob/master/CONTRIBUTING.md)",
+        "A maintainer will review your PR. — CONTRIBUTING.md, Review process (https://github.com/openemr/openemr/blob/master/CONTRIBUTING.md)",
+        "Good to do these in order listed above. — Steps for an official release, Overview (https://www.open-emr.org/wiki/index.php/Steps_for_an_official_release)"
+      ],
+      "primary_sources": [
+        {"title": "openemr/openemr", "url": "https://github.com/openemr/openemr"},
+        {"title": "openemr/openemr — CONTRIBUTING.md", "url": "https://github.com/openemr/openemr/blob/master/CONTRIBUTING.md"},
+        {"title": "QA and Release Process", "url": "https://www.open-emr.org/wiki/index.php/QA_and_Release_Process"},
+        {"title": "Steps for an official release", "url": "https://www.open-emr.org/wiki/index.php/Steps_for_an_official_release"}
+      ],
+      "date_or_version_context": "Contribution guide was reviewed on moving master branch and has no publication date/version. QA and Release Process has a Version 8.3.0+ section and version-specific work. Steps for an official release uses 8.1.0 as its example and was last edited 23 June 2026. These contexts do not all refer to the same version.",
+      "limitations": "Official contribution materials describe current repository practices while wiki release pages are version-specific checklists. They do not explicitly label an SDLC model, establish all steps as mandatory for every change, or document a formal clinical validation framework."
+    },
+    {
+      "id": "dhis2",
+      "software_name": "DHIS2",
+      "software_type": "Open-source health information management platform",
+      "maintainer_or_org": "HISP Centre at the University of Oslo, with development and implementation involving the global HISP network",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "For DHIS2 Core contributions, discuss feature requirements and design with the development team through the developer community before implementation.",
+        "Submit a pull request against master with a corresponding Jira issue describing the bug or feature and affected versions; submit separate backport PRs for stable versions as needed.",
+        "Use documented DHIS2 Core Java code-style/formatting guidelines and include at least one unit test for new features or behavior changes.",
+        "Update relevant documentation when a change adds features or changes existing user-interface or API behavior.",
+        "The DHIS2 Core developer team reviews PRs; contributors adjust changes in response to comments, and merge to master requires approval by two core team members.",
+        "Merged contributions enter an applicable DHIS2 release; contributor guidance gives lead times of at least two months before a major release and one month before a patch update for release-specific inclusion.",
+        "Project release policy describes yearly DHIS2 Core major releases, twice-yearly Android Capture releases, regular patches for supported versions, and hotfixes as needed for urgent security vulnerabilities or critical bugs.",
+        "DHIS2 states that it provides support and maintenance updates for the three most recent versions; core app updates are also available through continuous release."
+      ],
+      "evidence_statement": "Primary sources document a DHIS2 Core contribution path (requirements/design discussion, issue-linked pull requests, unit tests, documentation updates, team review and approval, and release inclusion) and describe release/support cadence. They do not explicitly name a lifecycle model or establish a complete formal lifecycle or general validation/QA framework.",
+      "verbatim_evidence": [
+        "The PR should contain at least one unit test — Contribute to the DHIS2 source code (https://developers.dhis2.org/community/contribute/)",
+        "The PR will be merged to master once approved by two core team members. — Contribute to the DHIS2 source code (https://developers.dhis2.org/community/contribute/)",
+        "We currently publish major releases of the core DHIS2 software on a yearly basis — DHIS2 Software Releases (https://dhis2.org/releases/)"
+      ],
+      "primary_sources": [
+        {"title": "Contribute to the DHIS2 source code", "url": "https://developers.dhis2.org/community/contribute/"},
+        {"title": "DHIS2 Software Releases", "url": "https://dhis2.org/releases/"},
+        {"title": "DHIS2 in Norway", "url": "https://dhis2.org/norway/"}
+      ],
+      "date_or_version_context": "The releases page lists Core versions 43, 42, and 41 and Android Capture versions 3.4, 3.3, and 3.2. The reviewed pages give no publication date for the contribution guidance. Release/support cadence is as stated on the reviewed project page.",
+      "limitations": "Evidence is centered on contribution to DHIS2 Core and published release policy; it may not describe every component or internal team workflow. No overall SDLC model or comprehensive validation/security-review lifecycle was found in the reviewed sources."
+    },
+    {
+      "id": "bahmni",
+      "software_name": "Bahmni",
+      "software_type": "Open-source hospital information system and EMR",
+      "maintainer_or_org": "Bahmni project/community; governance documentation describes contributors across independent stakeholders and roles for product architecture, technical advisory, core team, and release administrators.",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "Design: public design documentation says enhancements undergo public design before development. It describes community discussion and feedback; for non-trivial already-built contributions, product-direction review by the Product Architecture Team and technical review by the Technical Advisory Board, with end-user research if needed; contributors are expected to incorporate feedback before acceptance.",
+        "Work tracking and contribution: the pull-request guide calls for an existing Jira issue assessed as Ready For Dev; a contributor claims it and moves it to In Development. The guide documents forking a repository, creating a branch, committing work, updating from upstream as needed, submitting a pull request (normally against master), linking the PR and updating the issue to Needs Code Review, and signing the CLA on first contribution.",
+        "Review and testing: review guidance asks reviewers to check failing CI/code-quality checks, correctness and maintainability, seek local execution for larger or uncertain changes, and ensure corresponding unit and applicable integration tests. It asks whether performance was tested with representative data. The issue tracker identifies reviewer sign-off/merge and a UAT assignee who tests during community QA.",
+        "Release Process page documents release branching/tagging and artifact traceability; alpha/beta/release-candidate communication and QA; recording QA issues in Jira and tracking testing; automated component compilation, integration, testing and packaging; some functional tests in developer environments and some manually triggered stages; controlled CI/CD deployment and publication; artifact checksum checks and install/upgrade verification; and a release retrospective. The page describes historical infrastructure and is not evidence of current operations."
+      ],
+      "evidence_statement": "Primary sources document design consultation, issue tracking, pull-request contribution and review, testing, and release activities. They do not explicitly name an SDLC model or establish each activity as a mandatory phase in one universal lifecycle. Detailed release procedures include historical infrastructure and TODOs; they are reported as documented rather than assumed current.",
+      "verbatim_evidence": [
+        "Before any feature is built, it must go through a public design process — Public Design Process (https://bahmni.atlassian.net/wiki/spaces/BAH/pages/417333266/Public+Design+Process)",
+        "Ensure there are corresponding tests for the PR relevant code — Pull Request Review Guidelines (https://bahmni.atlassian.net/wiki/spaces/BAH/pages/643858433/Pull+Request+Review+Guidelines)",
+        "Compilation, Integration, Testing, Packaging etc for each components are automated. — Release Process (https://bahmni.atlassian.net/wiki/spaces/BAH/pages/840663049/Release+Process)"
+      ],
+      "primary_sources": [
+        {"title": "Public Design Process", "url": "https://bahmni.atlassian.net/wiki/spaces/BAH/pages/417333266/Public+Design+Process"},
+        {"title": "Submitting pull requests", "url": "https://bahmni.atlassian.net/wiki/spaces/BAH/pages/65929234/Submitting+pull+requests"},
+        {"title": "Pull Request Review Guidelines", "url": "https://bahmni.atlassian.net/wiki/spaces/BAH/pages/643858433/Pull+Request+Review+Guidelines"},
+        {"title": "Release Process", "url": "https://bahmni.atlassian.net/wiki/spaces/BAH/pages/840663049/Release+Process"},
+        {"title": "Issue Tracker (JIRA)", "url": "https://bahmni.atlassian.net/wiki/spaces/BAH/pages/462520337/Issue+Tracker+JIRA"}
+      ],
+      "date_or_version_context": "Reviewed source dates include 2018-01-13 (Public Design Process), 2021-10-27 (Submitting pull requests), 2019-04-23 (Pull Request Review Guidelines), and 2023-09-04 (Issue Tracker). Release Process date was not stated. It references historical examples such as release 0.91 and older infrastructure.",
+      "limitations": "Official wiki documents are unevenly dated. Some release details may be obsolete; the reviewed sources do not verify which operations remain current. No lifecycle model was explicitly labeled."
+    },
+    {
+      "id": "gnu-health",
+      "software_name": "GNU Health Hospital Information System (GNU Health HIS)",
+      "software_type": "Free/libre health and hospital information system",
+      "maintainer_or_org": "GNU Health project (official GNU Health documentation and Codeberg organization)",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "The coding guide says HIS source is hosted on Codeberg and versioned with Git, and directs developers to Python PEP 8 and Tryton coding guidelines.",
+        "The guide describes permanent main and devel branches: main is stable, devel is for the next major or minor release, and merging development branches to main implies a version-number increase. It documents separate branches for unfinished work and pull requests when work is finished; two branches are designated for testing Woodpecker CI.",
+        "For a new contributor patch, the contributing guide directs them to open a Savannah bug report and attach the patch; a developer reviews it and commits it to the main development branch if approved.",
+        "For documentation changes, the guide says to run docbuild.sh, which checks label consistency, rebuilds and lints the repository; it directs contributors to check modified pages locally before committing and run broken-link detection from time to time.",
+        "The release guide documents feature freeze some months before release and code freeze approximately two months before release. At code freeze, code is no longer accepted except bug fixes; the demo community server is updated with a release candidate and translator teams are notified.",
+        "The release guide says stable releases have an even minor number and security fixes are provided for the current release."
+      ],
+      "evidence_statement": "Official sources document Git hosting and branching, contributor patch review, certain documentation checks, limited CI-branch purpose, release freezes and candidate/translator notification, stable-release numbering, and current-release security fixes. They do not name an SDLC model or establish a complete lifecycle, comprehensive test strategy, validation criteria, or a general review policy for every change.",
+      "verbatim_evidence": [
+        "main : Stable permanent branch, every merging devel and other branches to it implies an increase of the version number. — Coding (https://docs.gnuhealth.org/his/techguide/development/coding.html)",
+        "One of the developers will review your patch and commit it to the main development branch if approved. — Contributing (https://docs.gnuhealth.org/his/techguide/contributing.html)",
+        "At this moment, no more code is accepted, except for bugfixes; — Release Process (https://docs.gnuhealth.org/his/techguide/release.html)"
+      ],
+      "primary_sources": [
+        {"title": "Coding", "url": "https://docs.gnuhealth.org/his/techguide/development/coding.html"},
+        {"title": "Contributing", "url": "https://docs.gnuhealth.org/his/techguide/contributing.html"},
+        {"title": "Release Process", "url": "https://docs.gnuhealth.org/his/techguide/release.html"},
+        {"title": "Changelog", "url": "https://docs.gnuhealth.org/his/changelog.html"}
+      ],
+      "date_or_version_context": "Release-process page identifies 5.0 as current stable and 5.2 based on Tryton 7.0 as upcoming, with estimated dates subject to change. Changelog dates 5.0.0 to 2025-06-30. The 5.2 schedule is not evidence the release occurred.",
+      "limitations": "Evidence is limited to official GNU Health documentation pages. The 5.2 schedule is explicitly an estimate. CI evidence only says designated branches are used to test Woodpecker CI; it does not specify application tests or a required release gate."
+    },
+    {
+      "id": "sormas",
+      "software_name": "SORMAS (Surveillance, Outbreak Response Management and Analysis System)",
+      "software_type": "Open-source eHealth software for disease surveillance and outbreak response, with web and mobile applications",
+      "maintainer_or_org": "SORMAS Foundation; official website identifies the Foundation as responsible for project maintenance and governance.",
+      "sdlc_label": "Gitflow development workflow (explicitly named by the project; no broader SDLC/lifecycle model is stated)",
+      "documented_lifecycle_steps": [
+        "Issue intake and refinement: contributors identify or submit issues, state their intention to implement, and the core development team checks/refines issues; implementation starts when an issue is marked ready.",
+        "Development: contributors follow project code-formatting and commit-message guidelines; development changes are merged into the development branch.",
+        "Pull-request review: changes are linked to an issue and reviewed by a core developer; requested changes may go through repeated review rounds before merge.",
+        "Automated checks and builds: GitHub Actions CI runs on pushes to development/master/hotfix branches and pull requests to development/hotfix branches; it builds with Maven clean install, with an option to skip tests. The contributing guide asks contributors to pass CI checks and fix failures such as unit tests.",
+        "Contributor testing: development setup guide recommends a local SORMAS server for testing code and gives Android emulator instructions, including testing supported SDK levels.",
+        "Branching and release/versioning: the contributing guide names Gitflow, describes periodic merges from development to master with an identifiable version/tag, semantic version numbers, release notes attached to tags, and separate master-version branches for older-version micro releases."
+      ],
+      "evidence_statement": "Official primary sources explicitly name Gitflow as SORMAS's development workflow and document issue readiness, pull-request review and merge, automated Maven CI, contributor testing instructions, and branch/tag/release conventions. They do not establish a complete lifecycle model or document formal requirements-to-validation, clinical validation, or comprehensive release-approval processes.",
+      "verbatim_evidence": [
+        "For SORMAS we use the Gitflow development workflow. — Contributing Guidelines (https://sormas-foundation.github.io/SORMAS-Project/CONTRIBUTING/)",
+        "reviewed by one of our core developers — Contributing Guidelines (https://sormas-foundation.github.io/SORMAS-Project/CONTRIBUTING/)",
+        "the checks done by the automatic CI pipeline before it gets reviewed — Contributing Guidelines (https://sormas-foundation.github.io/SORMAS-Project/CONTRIBUTING/)"
+      ],
+      "primary_sources": [
+        {"title": "SORMAS - Surveillance Outbreak Response Management and Analysis System", "url": "https://www.sormas.org/"},
+        {"title": "Contributing Guidelines", "url": "https://sormas-foundation.github.io/SORMAS-Project/CONTRIBUTING/"},
+        {"title": "Development Environment Setup", "url": "https://sormas-foundation.github.io/SORMAS-Project/DEVELOPMENT_ENVIRONMENT/"},
+        {"title": "Java CI with Maven", "url": "https://github.com/SORMAS-Foundation/SORMAS-Project/blob/development/.github/workflows/ci.yml"},
+        {"title": "Releases: SORMAS-Foundation/SORMAS-Project", "url": "https://github.com/SORMAS-Foundation/SORMAS-Project/releases"}
+      ],
+      "date_or_version_context": "Contribution/development documentation and CI were reviewed on development branch and state no publication date/version. Releases page displayed SORMAS 1.104.0 as latest and a release date shown as 14 Jul with year not visible in retrieved page. CI uses JDK 17 and permits tests to be skipped through a workflow input.",
+      "limitations": "CI configuration and contributor instructions document mechanisms and expectations, not proof every change passes tests or receives validation. No broader formal lifecycle or clinical/user validation process was established by reviewed sources."
+    },
+    {
+      "id": "openelis-global",
+      "software_name": "OpenELIS Global (OpenELIS Global 2 in the reviewed repository)",
+      "software_type": "Laboratory information system (LIS)",
+      "maintainer_or_org": "DIGI-UW (organization owning the official OpenELIS-Global-2 repository)",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "Contribution intake: pull-request guide calls for an issue except for trivial typos, checking duplicates, waiting for issue assessment, and assigning the issue before work; branches and pull requests reference the issue.",
+        "Development and review: development pull requests target develop; contributors request appropriate reviewers, address review comments, format changes, inspect the diff, and check GitHub Actions/build status.",
+        "Testing: testing roadmap names TDD-first for complex logic and describes unit, controller HTTP, backend integration, and browser end-to-end testing. README documents a local PR-check runner covering backend, frontend, shared build, Playwright and Cypress lanes; each E2E suite gets an isolated database, and a failed or unrun required lane fails the runner.",
+        "Release preparation and publication: release guide documents cutting a release branch from develop, testing release candidates, opening a reviewed release PR into main, approval and green checks, release-manager merge, tagging, and publishing a GitHub Release that builds, tests, and pushes versioned images.",
+        "Fixes for released versions: release guide says to merge a fix to develop first and then cherry-pick it onto supported release branches; relevant release branch is bumped and released under the guide's procedures."
+      ],
+      "evidence_statement": "Official repository sources document contribution, review, testing, release and released-version fix procedures. The README names Spec-Driven Development (SDD) and the testing roadmap names TDD, but reviewed sources do not explicitly identify an overall SDLC/lifecycle model; those are recorded as practices, not used to relabel the SDLC. No generic lifecycle, clinical/regulatory validation protocol, or comprehensive post-release policy is inferred.",
+      "verbatim_evidence": [
+        "main changes only through a reviewed release pull request from a release branch. — RELEASES.md (https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/RELEASES.md)",
+        "Request review from appropriate team members; Check GitHub Actions build status. — PULL_REQUEST_TIPS.md (https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/PULL_REQUEST_TIPS.md)",
+        "Each E2E suite gets a fresh isolated database. — README.md (https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/README.md)"
+      ],
+      "primary_sources": [
+        {"title": "DIGI-UW/OpenELIS-Global-2 — README.md", "url": "https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/README.md"},
+        {"title": "DIGI-UW/OpenELIS-Global-2 — PULL_REQUEST_TIPS.md", "url": "https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/PULL_REQUEST_TIPS.md"},
+        {"title": "DIGI-UW/OpenELIS-Global-2 — RELEASES.md", "url": "https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/RELEASES.md"},
+        {"title": "OpenELIS Testing Roadmap", "url": "https://github.com/DIGI-UW/OpenELIS-Global-2/blob/develop/.specify/guides/testing-roadmap.md"}
+      ],
+      "date_or_version_context": "Reviewed 2026-10-05 on develop branch. RELEASES.md lists supported 3.2.3.x and plans 3.3.0 for 2026-11-27 when it plans to first use Semantic Versioning. Testing roadmap date is a placeholder (2025-01-XX).",
+      "limitations": "Evidence is from mutable develop-branch repository documents. The roadmap date is a placeholder and currency is uncertain. Documents describe instructions and release controls, not an independent audit that all steps are followed. No overall SDLC model is explicitly stated."
+    },
+    {
+      "id": "hapi-fhir",
+      "software_name": "HAPI FHIR",
+      "software_type": "Open-source Java implementation of HL7 FHIR for healthcare interoperability, including client and server APIs",
+      "maintainer_or_org": "HAPI FHIR project (hapifhir GitHub organization)",
+      "sdlc_label": "Not explicitly stated in reviewed primary sources",
+      "documented_lifecycle_steps": [
+        "Contributions are made through a fork and feature branch.",
+        "Contributors are instructed to follow code style, use Java 17, apply formatting with mvn spotless:apply, and include JUnit 5 tests for new functionality.",
+        "Pull requests should describe the change and reference related issues; each PR must include a changelog entry, with significant changes also documented in upgrade notes.",
+        "Each pull request requires at least one reviewer approval; CI checks for tests, linting, and changelog validation must pass, and reviewers may request updates.",
+        "Repository README lists CI status for master, a snapshot pipeline, and release artifacts; reviewed material does not spell out a full release procedure."
+      ],
+      "evidence_statement": "Official contributor guide documents contribution, testing, pull-request review, CI checks, and changelog requirements. Official repository README identifies master CI, a snapshot pipeline, and release artifacts. These support specific documented workflow steps, but neither source names an SDLC model or establishes a complete lifecycle.",
+      "verbatim_evidence": [
+        "Include JUnit 5 tests for all new functionality — HAPI FHIR Contributors Guide (https://github.com/hapifhir/hapi-fhir/blob/master/CONTRIBUTORS.md)",
+        "All PRs require at least one reviewer approval — HAPI FHIR Contributors Guide (https://github.com/hapifhir/hapi-fhir/blob/master/CONTRIBUTORS.md)",
+        "CI checks (tests, linting, changelog validation) must pass — HAPI FHIR Contributors Guide (https://github.com/hapifhir/hapi-fhir/blob/master/CONTRIBUTORS.md)"
+      ],
+      "primary_sources": [
+        {"title": "Contributors Guide — HAPI FHIR", "url": "https://github.com/hapifhir/hapi-fhir/blob/master/CONTRIBUTORS.md"},
+        {"title": "hapifhir/hapi-fhir — GitHub repository", "url": "https://github.com/hapifhir/hapi-fhir"}
+      ],
+      "date_or_version_context": "Contributor guide was reviewed from master and specifies Java 17 but no publication date or product version. README refers to CI for master, a snapshot pipeline, and release artifacts without a release version in the retrieved page.",
+      "limitations": "Findings are limited to two official project sources. The contributor guide describes PR controls, not end-to-end release; the README labels CI/snapshot/release resources without operational steps. No lifecycle label or comprehensive maintenance/validation process was found."
+    }
+  ]
+}
