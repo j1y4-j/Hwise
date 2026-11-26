@@ -5,7 +5,8 @@ export const hwiseCoordinator = new Agent({
   id: 'hwise-coordinator',
   name: 'Hwise Healthcare Software Assistant',
   description: 'Routes healthcare software lifecycle planning requests to Hwise’s evidence-grounded workflow.',
-  instructions: `You are Hwise, an assistant for healthcare software requirements and SDLC planning.
+  instructions: `/no_think
+You are Hwise, an assistant for healthcare software requirements and SDLC planning.
 
 The registered workflow is healthcare-requirements-then-sdlc. For a full requirements profile and lifecycle recommendation, tell the caller to run that workflow with the project brief. Do not claim to have run it yourself. You may explain Hwise's scope and the limitations of its public evidence corpus.
 

@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { createStep, createWorkflow } from '@mastra/core/workflows';
 import { z } from 'zod';
 import { healthcareRequirementsAgent, healthcareSdlcRecommendationAgent } from './healthcare-agents';
+import { formatHealthcareMarkdown, renderHealthcareHtml } from './healthcare-preview';
 import { hwiseWorkspaceRoot } from './hwise-workspace';
 
 const previewDir = join(hwiseWorkspaceRoot, 'artifacts/hwise-healthcare-sdlc');
@@ -14,18 +15,6 @@ const cleanModelText = (text: string) => {
   return output.replace(/<\/?think\b[^>]*>/gi, '').replace(/\n{3,}/g, '\n\n').trim();
 };
 
-const escapeHtml = (value: string) => value
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&#39;');
-
-const markdownPreview = (markdown: string) => `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hwise Healthcare SDLC</title>
-<style>body{font:16px/1.6 system-ui,sans-serif;max-width:1000px;margin:40px auto;padding:0 20px;color:#172033}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f5f7fa;padding:24px;border-radius:8px}</style></head>
-<body><h1>Hwise Healthcare SDLC — Markdown preview</h1><pre>${escapeHtml(markdown)}</pre></body></html>`;
-
 const profileHealthcareRequirements = createStep({
   id: 'profile-healthcare-requirements',
   description: 'Create a requirements profile for healthcare software with evidence and validation gaps.',
@@ -33,9 +22,9 @@ const profileHealthcareRequirements = createStep({
   outputSchema: z.object({ requirements: z.string() }),
   execute: async ({ inputData }) => {
     const result = await healthcareRequirementsAgent.generate(inputData.prompt);
-    const requirements = cleanModelText(result.text ?? '');
-    if (!requirements) throw new Error('Hwise Healthcare Requirements Agent returned no text');
-    return { requirements };
+    const cleaned = cleanModelText(result.text ?? '');
+    if (!cleaned) throw new Error('Hwise Healthcare Requirements Agent returned no text');
+    return { requirements: formatHealthcareMarkdown(cleaned).trim() };
   },
 });
 
@@ -48,24 +37,27 @@ const recommendHealthcareSdlc = createStep({
     const result = await healthcareSdlcRecommendationAgent.generate(
       `Recommend and justify a lifecycle for this healthcare software requirements profile. Keep observed dataset practices separate from recommendations.\n\n${inputData.requirements}`,
     );
-    const sdlc = cleanModelText(result.text ?? '');
-    if (!sdlc) throw new Error('Hwise Healthcare SDLC Recommendation Agent returned no text');
-    return { requirements: inputData.requirements, sdlc, document: `${inputData.requirements.trim()}\n\n---\n\n${sdlc}` };
+    const cleaned = cleanModelText(result.text ?? '');
+    if (!cleaned) throw new Error('Hwise Healthcare SDLC Recommendation Agent returned no text');
+    const sdlc = formatHealthcareMarkdown(cleaned).trim();
+    const requirements = formatHealthcareMarkdown(inputData.requirements).trim();
+    return { requirements, sdlc, document: formatHealthcareMarkdown(`${requirements}\n\n---\n\n${sdlc}`).trim() };
   },
 });
 
 const writeHealthcarePreviews = createStep({
   id: 'write-hwise-healthcare-previews',
-  description: 'Write Markdown and escaped HTML previews of the Hwise healthcare SDLC output.',
+  description: 'Write Markdown and rendered HTML previews of the Hwise healthcare SDLC output.',
   inputSchema: z.object({ requirements: z.string(), sdlc: z.string(), document: z.string() }),
   outputSchema: z.object({ requirements: z.string(), sdlc: z.string(), document: z.string(), markdownPath: z.string(), htmlPath: z.string() }),
   execute: async ({ inputData }) => {
     await mkdir(previewDir, { recursive: true });
     const markdownPath = join(previewDir, 'latest.md');
     const htmlPath = join(previewDir, 'latest.html');
-    await writeFile(markdownPath, `${inputData.document.trim()}\n`, 'utf8');
-    await writeFile(htmlPath, markdownPreview(inputData.document), 'utf8');
-    return { ...inputData, markdownPath, htmlPath };
+    const formattedDocument = formatHealthcareMarkdown(inputData.document);
+    await writeFile(markdownPath, formattedDocument, 'utf8');
+    await writeFile(htmlPath, renderHealthcareHtml(formattedDocument), 'utf8');
+    return { ...inputData, document: formattedDocument.trim(), markdownPath, htmlPath };
   },
 });
 

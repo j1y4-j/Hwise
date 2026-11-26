@@ -3,9 +3,11 @@ import { healthcareRagContextProcessor } from './healthcare-rag';
 import { hwiseChatModel } from './hwise-model';
 import { HEALTHCARE_REQUIREMENTS_PROMPT, HEALTHCARE_SDLC_PROMPT } from './healthcare-prompts';
 
+
 const sharedOptions = {
-  modelSettings: { maxOutputTokens: 3_000 },
+  modelSettings: { maxOutputTokens: 1_800 },
 } as const;
+
 
 export const healthcareRequirementsAgent = new Agent({
   id: 'hwise-healthcare-requirements-agent',
@@ -25,7 +27,7 @@ export const healthcareSdlcRecommendationAgent = new Agent({
   model: hwiseChatModel,
   defaultOptions: {
     ...sharedOptions,
-    modelSettings: { maxOutputTokens: 4_000 },
+    modelSettings: { maxOutputTokens: 2_200 },
   },
   inputProcessors: [healthcareRagContextProcessor],
 });
